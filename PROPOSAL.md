@@ -6,30 +6,24 @@ Emily Mai
 
 # Intentions:
 
-This project will be a simple chatroom in which users will be able to communicate with others.
-A statement of the problem you are solving and/or a high level description of the project. (CHANGE THIS!!!!!)
+This project will be a simple chat program in which users will be able to communicate with others.
 
 # Intended usage:
 
-Users will be prompted to connect to a shared server. User can input text messages which will be received by the server and displayed.
-A description as to how the project will be used (describe the user interface). (CHANGE THIS!!!!!)
+A server can be made by running a command like ./server. In order to communicate, users will have to connect to the server by running another command such as ./client. Users will be prompted to input text messages which will be received by the server and displayed on all user terminals. 
 
 # Technical Details:
 
-Users will connect to a shared server using named pipes and unnamed pipes can be used to send and receive messages between the user and server.
-Other concepts that can be included are signals, .
-(CHANGE THIS!!!!!)
-
-A description of your technical design. This should include:
-
-How you will be using the topics covered in class in the project.
-
-How you are breaking down the project and who is responsible for which parts.
+Sockets and networking will be used to facilitate connections between the server and the client, and allow for communication among them.
+To have multiple clients, the select function wil be used to simultaneously check multiple sockets to see if they have data waiting to be received or if data can be sent to them without blocking.
+Signals can be used to close clients and sockets.
+Files can be used to keep track of the chat log.
 
 
 # Intended pacing:
 
-A timeline with expected completion dates of parts of the project. (CHANGE THIS!!!!!)
-
-1/13 - basic program allowing users to communicate in place
-1/16 - project due
+1/12 - basic program allowing users to communicate in place
+1/13 - making chat log file
+1/14 - debugging, error checking, can add features like usernames, etc. to make it feel more like a messaging app
+1/15 - finishing touches, record and edit video presentation
+1/16 - final review of project, readme done, project due
