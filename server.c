@@ -2,6 +2,9 @@
 
 
 void subserver_logic(int client_socket){
+  fd_set desciptors;
+
+  
   while (1) {
     //listens for a string (use the buffer size)
     char buffer[BUFFER_SIZE];
@@ -19,6 +22,7 @@ void subserver_logic(int client_socket){
     //printf("server sending back: %s\n", buffer);
   }
 }
+
 
 int main(int argc, char *argv[] ) {
   int listen_socket = server_setup();
