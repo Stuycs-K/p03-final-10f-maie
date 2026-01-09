@@ -25,19 +25,28 @@ void subserver_logic(int client_socket){
 
 
 int main(int argc, char *argv[] ) {
-  fd_set read_fds;
-  FD_ZERO(&read_fds);
+  fd_set master;    // master file descriptor list
+  fd_set read_fds;  // temp file descriptor list for select()
+  int fdmax;        // maximum file descriptor number
 
+  FD_ZERO(&master);
+  FD_ZERO(&read_fds);
   int listen_socket = server_setup();
 
-  //add listen_socket and stdin to the set
-  FD_SET(listen_socket, &read_fds);
-  //add stdin's file desciptor
-  FD_SET(STDIN_FILENO, &read_fds);
+  //add listen_socket to the master set
+  FD_SET(listen_socket, &master);
+
+  fdmax = listen_socket; //biggest file descriptor so far
 
   printf("bind complete\n");
   printf("server listening for connections.\n");
   while (1) {
+    read_fds = master;
+    if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {
+      perror("select error");
+      exit(1);
+    }
+
     int client_socket = server_tcp_handshake(listen_socket);
     pid_t pid = fork();
     if (pid == 0) {

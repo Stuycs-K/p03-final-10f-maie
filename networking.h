@@ -8,8 +8,9 @@
 #include <errno.h>
 #include <signal.h>
 #include <sys/wait.h>
-#include <sys/socket.h> 
+#include <sys/socket.h>
 #include <netdb.h>
+#include <sys/time.h>
 
 
 #ifndef NETWORKING_H
