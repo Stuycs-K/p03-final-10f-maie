@@ -2,9 +2,9 @@
 
 
 void subserver_logic(int client_socket){
-  fd_set desciptors;
+  fd_set read_fds;
+  FD_ZERO(&read_fds);
 
-  
   while (1) {
     //listens for a string (use the buffer size)
     char buffer[BUFFER_SIZE];
@@ -25,7 +25,16 @@ void subserver_logic(int client_socket){
 
 
 int main(int argc, char *argv[] ) {
+  fd_set read_fds;
+  FD_ZERO(&read_fds);
+
   int listen_socket = server_setup();
+
+  //add listen_socket and stdin to the set
+  FD_SET(listen_socket, &read_fds);
+  //add stdin's file desciptor
+  FD_SET(STDIN_FILENO, &read_fds);
+
   printf("bind complete\n");
   printf("server listening for connections.\n");
   while (1) {
