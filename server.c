@@ -1,26 +1,28 @@
 #include "networking.h"
 
 
-void subserver_logic(int client_socket){
-  fd_set read_fds;
-  FD_ZERO(&read_fds);
-
-  while (1) {
+void subserver_logic(int client_socket, int listen_socket, fd_set * master){
+  //while (1) {
     //listens for a string (use the buffer size)
     char buffer[BUFFER_SIZE];
     int bytes_read = read(client_socket, buffer, sizeof(buffer));
-    if (bytes_read == 0) {
+    if (bytes_read <= 0) {
       printf("Socket closed\n");
-      break;
+      close(client_socket);
+      FD_CLR(client_socket, master); //remove from master set
+      //break;
     }
-    err(bytes_read, "read error");
     printf("server received: %s\n", buffer);
 
-    //server writes back message to client
-    int bytes_written = write(client_socket, buffer, bytes_read);
-    err(bytes_written, "write error");
+    //server writes back message to all clients
+    for (int i = 0; i < FD_SETSIZE; i++) {
+      if (i != client_socket && i != listen_socket && FD_ISSET(i, master)) {
+        int bytes_written = write(i, buffer, bytes_read);
+        err(bytes_written, "write error");
+      }
+    }
     //printf("server sending back: %s\n", buffer);
-  }
+  //}
 }
 
 
@@ -47,13 +49,21 @@ int main(int argc, char *argv[] ) {
       exit(1);
     }
 
-    int client_socket = server_tcp_handshake(listen_socket);
-    pid_t pid = fork();
-    if (pid == 0) {
-      subserver_logic(client_socket);
-    }
-    else {
-      close(client_socket);
+    for (int i = 0; i <= fdmax; i++) {
+      if (FD_ISSET(i, &read_fds)) {
+        if (i == listen_socket) {
+          //connect new client
+          int client_socket = server_tcp_handshake(listen_socket);
+          FD_SET(client_socket, &master); //add to master
+          if (client_socket > fdmax) {
+            fdmax = client_socket;
+          }
+          printf("new client connected: %d\n", client_socket);
+        }
+        else {
+          subserver_logic(i, listen_socket, &master);
+        }
+      }
     }
   }
 }
