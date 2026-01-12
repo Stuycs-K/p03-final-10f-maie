@@ -14,8 +14,10 @@ Updated proposal. Added basic networking files. Started server and client files.
 Added basic client and server logic for one server and client. Began working on using select to handle multiple clients. (1 hr)
 
 ### 2026-01-09 - Working on select
-Worked on incorportating select into the server code to be able to handle multiple clients.
+Worked on incorporating select into the server code to be able to handle multiple clients. (40 mins)
 
+### 2026-01-12 - 
+Finished incorporating select into server.c and client.c to handle multiple users and have messages from all clients be displayed for each client.
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
