@@ -3,17 +3,27 @@
  
 ### GROUP NAME HERE (CHANGE THIS!!!!!)
 
-Group Members Here (CHANGE THIS!!!!!)
+Emily Mai
        
 ### Project Description:
+
+A simple chat program where users can communicate with each other.
 
 Explain what is this project. (CHANGE THIS!!!!!)
   
 ### Instructions:
 
+To run the server:
+./server
+To connect a user, run on a separate terminal:
+./client
+
 How does the user install/compile/run the program. (CHANGE THIS!!!!!)
 How does the user interact with this program? (CHANGE THIS!!!!!)
 
 ### Resources/ References:
+
+https://konstantinnovation.github.io/systems.html
+https://beej.us/guide/bgnet/html/
 
 list here(CHANGE THIS!!!!!)
