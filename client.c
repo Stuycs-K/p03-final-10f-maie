@@ -4,6 +4,18 @@ void clientLogic(int server_socket){
   fd_set read_fds;
   char input[BUFFER_SIZE];
 
+  //ask client for username
+  char user[BUFFER_SIZE];
+  printf("client, enter a username: ");
+  if (fgets(input, BUFFER_SIZE, stdin) != NULL) {
+    int len = strlen(user);
+    if (len > 0 && user[len-1] == '\n') {
+      user[len -1] = '\0'; //remove new line
+    }
+    int bytes_written = write(server_socket, user, sizeof(user));
+    err(bytes_written, "write user name error");
+  }
+  
   while (1) {
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
@@ -52,5 +64,6 @@ int main(int argc, char *argv[] ) {
   }
   int server_socket = client_tcp_handshake(IP);
   printf("client connected.\n");
+  //printf("client, enter a message:");
   clientLogic(server_socket);
 }

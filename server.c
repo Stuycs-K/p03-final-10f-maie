@@ -58,7 +58,11 @@ int main(int argc, char *argv[] ) {
           if (client_socket > fdmax) {
             fdmax = client_socket;
           }
-          printf("new client connected: %d\n", client_socket);
+          //printf("new client connected: %d\n", client_socket);
+          char user[BUFFER_SIZE];
+          int bytes_read = read(client_socket, user, sizeof(user));
+          err(bytes_read, "user name read error");
+          printf("new client connected: %s\n", user);
         }
         else {
           subserver_logic(i, listen_socket, &master);
