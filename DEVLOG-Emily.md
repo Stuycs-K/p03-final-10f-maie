@@ -20,7 +20,14 @@ Worked on incorporating select into the server code to be able to handle multipl
 Finished incorporating select into server.c and client.c to handle multiple users. Working on fixing print statements prompting clients to enter a message and displaying messages from all clients. Began adding feature to allow clients to enter a username. (2 hrs)
 
 ### 2026-01-13 -
-Fixed allowing clients to enter a username. Edited format of print statements 
+Fixed allowing clients to enter a username. Edited format of print statements and displayed username with each message.
+
+### 2026-01-14 -
+
+### 2026-01-15 -
+
+### 2026-01-16 -
+
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
