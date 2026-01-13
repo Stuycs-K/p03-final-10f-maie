@@ -12,6 +12,7 @@ void subserver_logic(int client_socket, int listen_socket, fd_set * master){
       FD_CLR(client_socket, master); //remove from master set
       //break;
     }
+    buffer[bytes_read] = '\0';
     printf("server received: %s\n", buffer);
 
     //server writes back message to all clients
@@ -62,6 +63,7 @@ int main(int argc, char *argv[] ) {
           char user[BUFFER_SIZE];
           int bytes_read = read(client_socket, user, sizeof(user));
           err(bytes_read, "user name read error");
+          user[bytes_read] = '\0';
           printf("new client connected: %s\n", user);
         }
         else {

@@ -7,12 +7,12 @@ void clientLogic(int server_socket){
   //ask client for username
   char user[BUFFER_SIZE];
   printf("client, enter a username: ");
-  if (fgets(input, BUFFER_SIZE, stdin) != NULL) {
+  if (fgets(user, BUFFER_SIZE, stdin) != NULL) {
     int len = strlen(user);
     if (len > 0 && user[len-1] == '\n') {
       user[len -1] = '\0'; //remove new line
     }
-    int bytes_written = write(server_socket, user, sizeof(user));
+    int bytes_written = write(server_socket, user, strlen(user));
     err(bytes_written, "write user name error");
   }
   
@@ -35,7 +35,7 @@ void clientLogic(int server_socket){
           input[len -1] = '\0'; //remove new line
         }
         //send the user input to the server
-        int bytes_written = write(server_socket, input, sizeof(input));
+        int bytes_written = write(server_socket, input, strlen(input));
         err(bytes_written, "write error");
       }
       else {
@@ -52,6 +52,7 @@ void clientLogic(int server_socket){
         break;
       }
       err(bytes_read, "read error");
+      buffer[bytes_read] = '\0';
       printf("client received: '%s'\n", buffer);
     }
   }
