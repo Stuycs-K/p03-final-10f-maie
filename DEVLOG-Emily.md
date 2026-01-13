@@ -17,7 +17,10 @@ Added basic client and server logic for one server and client. Began working on 
 Worked on incorporating select into the server code to be able to handle multiple clients. (40 mins)
 
 ### 2026-01-12 - More select work, printing statements, getting clients' usernames
-Finished incorporating select into server.c and client.c to handle multiple users. Working on fixing print statements prompting clients to enter a message and displaying messages from all clients. Began adding feature to allow clients to enter a username.
+Finished incorporating select into server.c and client.c to handle multiple users. Working on fixing print statements prompting clients to enter a message and displaying messages from all clients. Began adding feature to allow clients to enter a username. (2 hrs)
+
+### 2026-01-13 -
+Fixed allowing clients to enter a username. Edited format of print statements 
 
 ### 2024-01-03 - Brief description
 Expanded description including how much time was spent on task.
