@@ -16,6 +16,9 @@ void clientLogic(int server_socket){
     err(bytes_written, "write user name error");
   }
   
+  printf("%s, enter a message: ", user);
+  fflush(stdout);
+
   while (1) {
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
@@ -28,7 +31,8 @@ void clientLogic(int server_socket){
 
     if(FD_ISSET(STDIN_FILENO, &read_fds)) {
       //prompts the user for a string
-      printf("client, enter a message: ");
+      //printf("%s, enter a message: ", user);
+      //fflush(stdout);
       if (fgets(input, BUFFER_SIZE, stdin) != NULL) {
         int len = strlen(input);
         if (len > 0 && input[len-1] == '\n') {
@@ -37,6 +41,8 @@ void clientLogic(int server_socket){
         //send the user input to the server
         int bytes_written = write(server_socket, input, strlen(input));
         err(bytes_written, "write error");
+        printf("%s, enter a message: ", user);
+        fflush(stdout);
       }
       else {
         printf("Client closed\n");
@@ -53,7 +59,9 @@ void clientLogic(int server_socket){
       }
       err(bytes_read, "read error");
       buffer[bytes_read] = '\0';
-      printf("client received: '%s'\n", buffer);
+      printf("\nclient received: '%s'\n", buffer);
+      printf("%s, enter a message: ", user);
+      fflush(stdout);
     }
   }
 }
