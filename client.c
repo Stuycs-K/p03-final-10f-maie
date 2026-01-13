@@ -3,6 +3,7 @@
 void clientLogic(int server_socket){
   fd_set read_fds;
   char input[BUFFER_SIZE];
+  char s[BUFFER_SIZE];
 
   //ask client for username
   char user[BUFFER_SIZE];
@@ -15,7 +16,7 @@ void clientLogic(int server_socket){
     int bytes_written = write(server_socket, user, strlen(user));
     err(bytes_written, "write user name error");
   }
-  
+
   printf("%s, enter a message: ", user);
   fflush(stdout);
 
@@ -39,8 +40,16 @@ void clientLogic(int server_socket){
           input[len -1] = '\0'; //remove new line
         }
         //send the user input to the server
-        int bytes_written = write(server_socket, input, strlen(input));
+        //char s[BUFFER_SIZE];
+        strcat(s, user);
+        strcat(s, ": ");
+        strcat(s, input);
+        //printf("%s", s);
+        //int bytes_written = write(server_socket, user, strlen(input));
+        //err(bytes_written, "write error");
+        int bytes_written = write(server_socket, s, strlen(s));
         err(bytes_written, "write error");
+        strcpy(s, "");
         printf("%s, enter a message: ", user);
         fflush(stdout);
       }

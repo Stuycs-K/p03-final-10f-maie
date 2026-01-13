@@ -5,6 +5,8 @@ void subserver_logic(int client_socket, int listen_socket, fd_set * master){
   //while (1) {
     //listens for a string (use the buffer size)
     char buffer[BUFFER_SIZE];
+    // char user[BUFFER_SIZE];
+    // int bytes_read = read(client_socket, user, sizeof(user));
     int bytes_read = read(client_socket, buffer, sizeof(buffer));
     if (bytes_read <= 0) {
       printf("Socket closed\n");
@@ -13,8 +15,8 @@ void subserver_logic(int client_socket, int listen_socket, fd_set * master){
       //break;
     }
     buffer[bytes_read] = '\0';
-    printf("server received: %s\n", buffer);
-
+    //printf("server received: %s\n", buffer);
+    printf("%s\n", buffer);
     //server writes back message to all clients
     for (int i = 0; i < FD_SETSIZE; i++) {
       if (i != client_socket && i != listen_socket && FD_ISSET(i, master)) {
