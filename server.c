@@ -17,6 +17,17 @@ void subserver_logic(int client_socket, int listen_socket, fd_set * master){
     buffer[bytes_read] = '\0';
     //printf("server received: %s\n", buffer);
     printf("%s\n", buffer);
+
+    //making chat log
+    int fd = open("log.txt", O_CREAT | O_WRONLY | O_APPEND, 0644);
+    err(fd, "file open error");
+    char log[BUFFER_SIZE];
+    strcat(log, buffer);
+    strcat(log, "\n");
+    int bytes_written = write(fd, log, strlen(log));
+    strcpy(log, "");
+    err(bytes_written, "write error");
+
     //server writes back message to all clients
     for (int i = 0; i < FD_SETSIZE; i++) {
       if (i != client_socket && i != listen_socket && FD_ISSET(i, master)) {

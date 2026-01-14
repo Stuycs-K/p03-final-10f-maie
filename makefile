@@ -14,4 +14,4 @@ compile client server: client.o server.o networking.o
 	@gcc -o server server.o networking.o
 
 clean:
-	rm -f *.o client server
+	rm -f *.o client server log.txt
