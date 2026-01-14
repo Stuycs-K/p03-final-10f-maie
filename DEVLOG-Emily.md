@@ -19,10 +19,11 @@ Worked on incorporating select into the server code to be able to handle multipl
 ### 2026-01-12 - More select work, printing statements, getting clients' usernames
 Finished incorporating select into server.c and client.c to handle multiple users. Working on fixing print statements prompting clients to enter a message and displaying messages from all clients. Began adding feature to allow clients to enter a username. (2 hrs)
 
-### 2026-01-13 -
+### 2026-01-13 - Displaying username with each message
 Fixed allowing clients to enter a username. Edited format of print statements and displayed username with each message.
 
 ### 2026-01-14 -
+Added code to write to a file that holds the chat log. Worked on readme
 
 ### 2026-01-15 -
 
