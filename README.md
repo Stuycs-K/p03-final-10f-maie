@@ -12,6 +12,17 @@ A simple chat program where users can communicate with each other.
 Explain what is this project. (CHANGE THIS!!!!!)
 
 ### Instructions:
+1. Open a terminal window and clone this repo through ssh by running:  
+`git clone git@github.com:Stuycs-K/p03-final-10f-maie.git`
+
+2. Once this repo is cloned, change to the repo directory:
+`cd p03-final-10f-maie`
+
+3. Run this in the terminal:  
+`make compile`
+
+
+3. 
 clone this repo, change the cloned repo directory, then run:  
 make clean  
 make compile  
