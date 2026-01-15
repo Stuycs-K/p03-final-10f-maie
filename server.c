@@ -18,8 +18,8 @@ void subserver_logic(int client_socket, int listen_socket, fd_set * master){
     //printf("server received: %s\n", buffer);
     printf("%s\n", buffer);
 
-    //making chat log
-    int fd = open("log.txt", O_CREAT | O_WRONLY | O_APPEND, 0644);
+    //writing to chat log file
+    int fd = open("log.txt", O_WRONLY | O_APPEND, 0644);
     err(fd, "file open error");
     char log[BUFFER_SIZE];
     strcat(log, buffer);
@@ -54,8 +54,16 @@ int main(int argc, char *argv[] ) {
 
   fdmax = listen_socket; //biggest file descriptor so far
 
-  printf("bind complete\n");
-  printf("server listening for connections.\n");
+  printf("Welcome! Server has succesfully connected!\n");
+  printf("Server is waiting for users...\n");
+
+  //make chat log file here
+  int fd = open("log.txt", O_CREAT | O_WRONLY | O_APPEND, 0644);
+  err(fd, "file open error");
+  char text[BUFFER_SIZE] = "New server session\n";
+  int bytes_written = write(fd, text, strlen(text));
+  err(bytes_written, "write error");
+
   while (1) {
     read_fds = master;
     if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {

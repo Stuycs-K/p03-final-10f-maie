@@ -68,7 +68,7 @@ void clientLogic(int server_socket){
       }
       err(bytes_read, "read error");
       buffer[bytes_read] = '\0';
-      printf("\nclient received: '%s'\n", buffer);
+      printf("\n%s\n", buffer);
       printf("%s, enter a message: ", user);
       fflush(stdout);
     }
