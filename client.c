@@ -5,7 +5,7 @@ char user[BUFFER_SIZE];
 static void sighandler(int signo) {
   if (signo == SIGINT) {
     char text[BUFFER_SIZE];
-    sprintf(text, "%s has disconnected", user);
+    snprintf(text, sizeof(text), "%s has disconnected", user);
     if (server_socket > 0) {
       int bytes_written = write(server_socket, text, strlen(text));
       err(bytes_written, "write error");
@@ -21,22 +21,6 @@ void clientLogic(int server_socket){
   char input[BUFFER_SIZE];
   char s[BUFFER_SIZE];
   
-  /*
-  //ask client for username
-  char user[BUFFER_SIZE];
-  printf("client, enter a username: ");
-  if (fgets(user, BUFFER_SIZE, stdin) != NULL) {
-    int len = strlen(user);
-    if (len > 0 && user[len-1] == '\n') {
-      user[len -1] = '\0'; //remove new line
-    }
-    int bytes_written = write(server_socket, user, strlen(user));
-    err(bytes_written, "write user name error");
-  }
-
-  printf("%s, enter a message: ", user);
-  fflush(stdout);
-*/
   while (1) {
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
@@ -49,20 +33,14 @@ void clientLogic(int server_socket){
 
     if(FD_ISSET(STDIN_FILENO, &read_fds)) {
       //prompts the user for a string
-      //printf("%s, enter a message: ", user);
-      //fflush(stdout);
       if (fgets(input, BUFFER_SIZE, stdin) != NULL) {
         int len = strlen(input);
         if (len > 0 && input[len-1] == '\n') {
           input[len -1] = '\0'; //remove new line
         }
         //send the user input to the server
-        //char s[BUFFER_SIZE];
         memset(s, 0, sizeof(s));
-        sprintf(s, "%s: %s", user, input);
-        //printf("%s", s);
-        //int bytes_written = write(server_socket, user, strlen(input));
-        //err(bytes_written, "write error");
+        snprintf(s, sizeof(s), "%s: %s", user, input);
         int bytes_written = write(server_socket, s, strlen(s));
         err(bytes_written, "write error");
         printf("%s, enter a message: ", user);
@@ -110,6 +88,5 @@ int main(int argc, char *argv[] ) {
   signal(SIGINT, sighandler);
   printf("%s, enter a message: ", user);
   fflush(stdout);
-  //printf("client, enter a message:");
   clientLogic(server_socket);
 }

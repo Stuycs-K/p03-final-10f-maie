@@ -2,20 +2,14 @@
 
 
 void subserver_logic(int client_socket, int listen_socket, fd_set * master){
-  //while (1) {
     //listens for a string (use the buffer size)
     char buffer[BUFFER_SIZE];
-    // char user[BUFFER_SIZE];
-    // int bytes_read = read(client_socket, user, sizeof(user));
     int bytes_read = read(client_socket, buffer, sizeof(buffer));
     if (bytes_read <= 0) {
-      //printf("Socket closed\n");
       close(client_socket);
       FD_CLR(client_socket, master); //remove from master set
-      //break;
     }
     buffer[bytes_read] = '\0';
-    //printf("server received: %s\n", buffer);
     printf("%s\n", buffer);
 
     //writing to chat log file
@@ -26,7 +20,6 @@ void subserver_logic(int client_socket, int listen_socket, fd_set * master){
     strcat(log, buffer);
     strcat(log, "\n");
     int bytes_written = write(fd, log, strlen(log));
-    //strcpy(log, "");
     err(bytes_written, "write error");
     close(fd);
 
@@ -37,8 +30,6 @@ void subserver_logic(int client_socket, int listen_socket, fd_set * master){
         err(bytes_written, "write error");
       }
     }
-    //printf("server sending back: %s\n", buffer);
-  //}
 }
 
 
@@ -83,7 +74,6 @@ int main(int argc, char *argv[] ) {
           if (client_socket > fdmax) {
             fdmax = client_socket;
           }
-          //printf("new client connected: %d\n", client_socket);
           char user[BUFFER_SIZE];
           memset(user, 0, sizeof(user));
           int bytes_read = read(client_socket, user, sizeof(user));
@@ -94,7 +84,7 @@ int main(int argc, char *argv[] ) {
           int fd = open("log.txt", O_CREAT | O_WRONLY | O_APPEND, 0644);
           err(fd, "file open error");
           char text[BUFFER_SIZE];
-          sprintf(text, "%s has connected\n", user);
+          snprintf(text, sizeof(text), "%s has connected\n", user);
           int bytes_written = write(fd, text, strlen(text));
           err(bytes_written, "write error");
           close(fd);
