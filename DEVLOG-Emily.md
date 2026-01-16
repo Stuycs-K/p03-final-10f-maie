@@ -26,10 +26,7 @@ Fixed allowing clients to enter a username. Edited format of print statements an
 Added code to write to a file that holds the chat log. Worked on readme. (40 mins)
 
 ### 2026-01-15 - Finishing touches
-Edited print statements to align with chat program. Debgugging, etc
+Edited print statements to align with chat program. Debgugging and editing chat log. (1 hr)
 
-### 2026-01-16 -
-
-
-### 2024-01-03 - Brief description
-Expanded description including how much time was spent on task.
+### 2026-01-16 - Final project complete
+Final changes and debugging to code. Recorded video and udpated final readme. (3 hrs)
