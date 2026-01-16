@@ -1,10 +1,27 @@
 #include "networking.h"
+int server_socket;
+char user[BUFFER_SIZE];
+
+static void sighandler(int signo) {
+  if (signo == SIGINT) {
+    char text[BUFFER_SIZE];
+    sprintf(text, "%s has disconnected", user);
+    if (server_socket > 0) {
+      int bytes_written = write(server_socket, text, strlen(text));
+      err(bytes_written, "write error");
+      close(server_socket);
+    }
+    printf("\n%s\n", text);
+    exit(0);
+  }
+}
 
 void clientLogic(int server_socket){
   fd_set read_fds;
   char input[BUFFER_SIZE];
   char s[BUFFER_SIZE];
-
+  
+  /*
   //ask client for username
   char user[BUFFER_SIZE];
   printf("client, enter a username: ");
@@ -19,7 +36,7 @@ void clientLogic(int server_socket){
 
   printf("%s, enter a message: ", user);
   fflush(stdout);
-
+*/
   while (1) {
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
@@ -41,15 +58,13 @@ void clientLogic(int server_socket){
         }
         //send the user input to the server
         //char s[BUFFER_SIZE];
-        strcat(s, user);
-        strcat(s, ": ");
-        strcat(s, input);
+        memset(s, 0, sizeof(s));
+        sprintf(s, "%s: %s", user, input);
         //printf("%s", s);
         //int bytes_written = write(server_socket, user, strlen(input));
         //err(bytes_written, "write error");
         int bytes_written = write(server_socket, s, strlen(s));
         err(bytes_written, "write error");
-        strcpy(s, "");
         printf("%s, enter a message: ", user);
         fflush(stdout);
       }
@@ -63,7 +78,7 @@ void clientLogic(int server_socket){
       char buffer[BUFFER_SIZE];
       int bytes_read = read(server_socket, buffer, sizeof(buffer));
       if (bytes_read == 0) {
-        printf("Socket closed\n");
+        printf("\nServer closed the connection\n");
         break;
       }
       err(bytes_read, "read error");
@@ -80,8 +95,21 @@ int main(int argc, char *argv[] ) {
   if(argc>1){
     IP=argv[1];
   }
-  int server_socket = client_tcp_handshake(IP);
+  server_socket = client_tcp_handshake(IP);
   printf("client connected.\n");
+  //ask client for username
+  printf("client, enter a username: ");
+  if (fgets(user, BUFFER_SIZE, stdin) != NULL) {
+    int len = strlen(user);
+    if (len > 0 && user[len-1] == '\n') {
+      user[len -1] = '\0'; //remove new line
+    }
+    int bytes_written = write(server_socket, user, strlen(user));
+    err(bytes_written, "write username error");
+  }
+  signal(SIGINT, sighandler);
+  printf("%s, enter a message: ", user);
+  fflush(stdout);
   //printf("client, enter a message:");
   clientLogic(server_socket);
 }
