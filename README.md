@@ -1,5 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/QfAIDTGi)
-# PROJECT NAME HERE (CHANGE THIS!!!!!)
+# Chat Away
 
 ### GROUP NAME HERE (CHANGE THIS!!!!!)
 
@@ -7,7 +7,7 @@ Emily Mai
 
 ### Project Description:
 
-A simple chat program where users can communicate with each other.
+A simple terminal-based chat program allowing users to communicate with each other.
 
 Explain what is this project. (CHANGE THIS!!!!!)
 
@@ -15,31 +15,31 @@ Explain what is this project. (CHANGE THIS!!!!!)
 1. Open a terminal window and clone this repo through ssh by running:  
 `git clone git@github.com:Stuycs-K/p03-final-10f-maie.git`
 
-2. Once this repo is cloned, change to the repo directory:
+2. Once this repo is cloned, change to the repo directory:  
 `cd p03-final-10f-maie`
 
 3. Run this in the terminal:  
 `make compile`
 
+4. To run the server:  
+`./server`
 
-3. 
-clone this repo, change the cloned repo directory, then run:  
-make clean  
-make compile  
+5. To connect a user, run the code below on a separate terminal. Multiple clients can connect to a server.  
+`./client`
 
-To run the server:  
-./server  
-To connect a user, run on a separate terminal:  
-./client  
+6. On the client terminal, you will be prompted to enter a username. Please enter any username you would like.
 
-On the client terminal, you will be prompted to enter a username.  
-Once a username is entered, clients will be able to send messages to the server to other clients. Clients will be able to recieve messages from other clients.  
+7. Once a username is entered, clients will be able to send messages to the server to other clients. Clients will be able to recieve messages from other clients. Feel free to start typing.
 
-If one wishes to view previous chat logs, run this on a separate terminal:  
-cat log.txt  
+8. To disconnect a client from the server, press Ctrl and C.
 
-To reset chat logs:  
-make clean  
+9. To view the chat log, run this on a separate terminal:  
+`cat log.txt`
+
+10. To reset chat logs:  
+`make clean`
+
+ 
 How does the user install/compile/run the program. (CHANGE THIS!!!!!)
 How does the user interact with this program? (CHANGE THIS!!!!!)
 
