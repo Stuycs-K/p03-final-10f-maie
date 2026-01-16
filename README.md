@@ -7,9 +7,10 @@ Emily Mai
 
 ### Project Description:
 
-A simple terminal-based chat program allowing users to communicate with each other.
+A simple terminal-based chat program allowing communication among various users. This project utilizes sockets and networking to connect clients to a server, and select to handle sending and receiving to multiple sockets simultaneously. Users are able to enter usernames, communicate with other users, and view chat logs.
 
-Explain what is this project. (CHANGE THIS!!!!!)
+### Video Link
+https://drive.google.com/file/d/1YsS5eLtH0E3iMnw_LqoV636xMKw4s6xK/view?usp=drive_link
 
 ### Instructions:
 1. Open a terminal window and clone this repo through ssh by running:  
@@ -29,7 +30,7 @@ Explain what is this project. (CHANGE THIS!!!!!)
 
 6. On the client terminal, you will be prompted to enter a username. Please enter any username you would like.
 
-7. Once a username is entered, clients will be able to send messages to the server to other clients. Clients will be able to recieve messages from other clients. Feel free to start typing.
+7. Once a username is entered, clients will be able to send messages to the server to other clients. Clients will be able to receive messages from other clients. Feel free to start typing.
 
 8. To disconnect a client from the server, press Ctrl and C.
 
@@ -39,13 +40,9 @@ Explain what is this project. (CHANGE THIS!!!!!)
 10. To reset chat logs:  
 `make clean`
 
- 
-How does the user install/compile/run the program. (CHANGE THIS!!!!!)
-How does the user interact with this program? (CHANGE THIS!!!!!)
 
 ### Resources/ References:
 
 https://konstantinnovation.github.io/systems.html  
 https://beej.us/guide/bgnet/html/  
 
-list here(CHANGE THIS!!!!!)
