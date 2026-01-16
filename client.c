@@ -5,7 +5,9 @@ char user[BUFFER_SIZE];
 static void sighandler(int signo) {
   if (signo == SIGINT) {
     char text[BUFFER_SIZE];
-    snprintf(text, sizeof(text), "%s has disconnected", user);
+    strncpy(text, user, BUFFER_SIZE - 1);
+    text[BUFFER_SIZE - 1] = '\0';
+    strncat(text, " has disconnected", BUFFER_SIZE - strlen(text) - 1);
     if (server_socket > 0) {
       int bytes_written = write(server_socket, text, strlen(text));
       err(bytes_written, "write error");
@@ -40,7 +42,9 @@ void clientLogic(int server_socket){
         }
         //send the user input to the server
         memset(s, 0, sizeof(s));
-        snprintf(s, sizeof(s), "%s: %s", user, input);
+	      strncat(s, user, sizeof(s) - strlen(s) - 1);
+	      strncat(s, ": ", sizeof(s) - strlen(s) - 1);
+	      strncat(s, input, sizeof(s) - strlen(s) - 1);
         int bytes_written = write(server_socket, s, strlen(s));
         err(bytes_written, "write error");
         printf("%s, enter a message: ", user);

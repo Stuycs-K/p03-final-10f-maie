@@ -84,7 +84,9 @@ int main(int argc, char *argv[] ) {
           int fd = open("log.txt", O_CREAT | O_WRONLY | O_APPEND, 0644);
           err(fd, "file open error");
           char text[BUFFER_SIZE];
-          snprintf(text, sizeof(text), "%s has connected\n", user);
+	        strncpy(text, user, BUFFER_SIZE - 1);
+	        text[BUFFER_SIZE - 1] = '\0';
+	        strncat(text, " has connected\n", BUFFER_SIZE - strlen(text) - 1);
           int bytes_written = write(fd, text, strlen(text));
           err(bytes_written, "write error");
           close(fd);
